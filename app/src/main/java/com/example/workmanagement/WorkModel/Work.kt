@@ -1,4 +1,4 @@
 package com.example.workmanagement.WorkModel
 
-class Work (Id: Int, workName: String, time: String) {
+class Work(val Id: Int, val workName: String, val time: String) {
 }
