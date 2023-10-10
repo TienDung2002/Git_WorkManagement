@@ -19,7 +19,7 @@ class MyContentProvider : ContentProvider() {
         private const val WORK_ID = 2
 
         // URI (Uniform Resource Identifier)
-        val CONTENT_URI = Uri.parse("content://$AUTHORITY/$WORKS_PATH")
+        val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY/$WORKS_PATH")
 
         // add thêm quy tắc vào uri
         private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
@@ -69,25 +69,25 @@ class MyContentProvider : ContentProvider() {
                 cursor
             }
             // uri math theo WORK_ID cụ thể
-            WORK_ID -> {
-                // Lấy phần cuối của Uri: ví dụ "content://com.example.workmanagement.MyContentProvider/works/2" thì id là 2
-                val id = uri.lastPathSegment
-                // Tạo dk truy vấn sử dụng "?" như placeholder để thay thế ID sau này trong truy vấn
-                val selectionById = "${MyOpenHelper.COLUMN_ID} = ?"
-                // Tạo 1 mảng chứa ID lấy từ lastPathSegment, mảng này để thay thế "?" ở selectionById
-                val selectionArgsById = arrayOf(id)
-                val cursor = db.query(
-                    MyOpenHelper.TABLE_NAME,
-                    projection,
-                    selectionById,
-                    selectionArgsById,
-                    null,
-                    null,
-                    sortOrder
-                )
-                cursor.setNotificationUri(context?.contentResolver, uri)
-                cursor
-            }
+//            WORK_ID -> {
+//                // Lấy phần cuối của Uri: ví dụ "content://com.example.workmanagement.MyContentProvider/works/2" thì id là 2
+//                val id = uri.lastPathSegment
+//                // Tạo dk truy vấn sử dụng "?" như placeholder để thay thế ID sau này trong truy vấn
+//                val selectionById = "${MyOpenHelper.COLUMN_ID} = ?"
+//                // Tạo 1 mảng chứa ID lấy từ lastPathSegment, mảng này để thay thế "?" ở selectionById
+//                val selectionArgsById = arrayOf(id)
+//                val cursor = db.query(
+//                    MyOpenHelper.TABLE_NAME,
+//                    projection,
+//                    selectionById,
+//                    selectionArgsById,
+//                    null,
+//                    null,
+//                    sortOrder
+//                )
+//                cursor.setNotificationUri(context?.contentResolver, uri)
+//                cursor
+//            }
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
     }
@@ -108,7 +108,7 @@ class MyContentProvider : ContentProvider() {
                     // Thông báo thay đổi dữ liệu
                     context?.contentResolver?.notifyChange(newUri, null)
                     newUri
-                } else throw SQLException("Failed to insert row into $uri")
+                } else throw SQLException("Chèn vào row thất bại $uri")
             }
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
@@ -118,12 +118,7 @@ class MyContentProvider : ContentProvider() {
         TODO("Not yet implemented")
     }
 
-    override fun update(
-        uri: Uri,
-        values: ContentValues?,
-        selection: String?,
-        selectionArgs: Array<out String>?
-    ): Int {
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
         TODO("Not yet implemented")
     }
 }

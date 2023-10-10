@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
 
-    <permission
-        android:name="com.example.workmanagement.READ_DATABASE"
-        android:protectionLevel="normal" />
-    <permission
-        android:name="com.example.workmanagement.WRITE_DATABASE"
-        android:protectionLevel="normal" />
+<!--    <permission-->
+<!--        android:name="com.example.workmanagement.READ_DATABASE"-->
+<!--        android:protectionLevel="normal" />-->
+<!--    <permission-->
+<!--        android:name="com.example.workmanagement.WRITE_DATABASE"-->
+<!--        android:protectionLevel="normal" />-->
 
     <application
         android:allowBackup="true"
@@ -33,11 +33,16 @@
         </activity>
 
         <provider
-            android:name=".MyContentProvider"
             android:authorities="com.example.workmanagement.MyContentProvider"
-            android:exported="true"
-            android:readPermission="com.android.example.workmanagement.READ_DATABASE"
-            android:writePermission="com.android.example.workmanagement.WRITE_DATABASE" />
+            android:name=".MyContentProvider"
+            android:exported="false" />
+
+<!--        <provider-->
+<!--            android:name=".MyContentProvider"-->
+<!--            android:authorities="com.example.workmanagement.MyContentProvider"-->
+<!--            android:exported="true"-->
+<!--            android:readPermission="com.android.example.workmanagement.READ_DATABASE"-->
+<!--            android:writePermission="com.android.example.workmanagement.WRITE_DATABASE" />-->
     </application>
 
 </manifest>

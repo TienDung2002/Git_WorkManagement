@@ -1,6 +1,7 @@
 package com.example.workmanagement.Screens
 
 import android.content.Intent
+import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,33 +48,33 @@ class MainActivity : AppCompatActivity() {
         DataLoaded()
     }
 
-    private fun DataLoaded(){
+    private fun DataLoaded() {
         val uri = MyContentProvider.CONTENT_URI
 
         // Các cột muốn truy vấn
         val projection = arrayOf(
             MyOpenHelper.COLUMN_ID,
             MyOpenHelper.COLUMN_NAME,
-            MyOpenHelper.COLUMN_ID
+            MyOpenHelper.COLUMN_TIME
         )
+
         // Dùng resolver để truy vấn vào MyContentProvider
-        val cursor = contentResolver.query(uri, projection, null, null, null)
+        val cursor: Cursor? = contentResolver.query(uri, projection, null, null, null)
 
-        // clear data cũ để làm mới
-        List.clear()
-
-        cursor.use {
-            while(cursor!!.moveToNext()) {
+        cursor?.apply {
+            // clear data cũ để làm mới
+            List.clear()
+            while (moveToNext()) {
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow(MyOpenHelper.COLUMN_ID))
                 val name = cursor.getString(cursor.getColumnIndexOrThrow(MyOpenHelper.COLUMN_NAME))
-                val time = cursor.getInt(cursor.getColumnIndexOrThrow(MyOpenHelper.COLUMN_TIME)).toString()
+                val time = cursor.getString(cursor.getColumnIndexOrThrow(MyOpenHelper.COLUMN_TIME))
 
                 val work = Work(id, name, time)
                 List.add(work)
             }
             myAdapter.notifyDataSetChanged()
             // xóa cursor để tối ưu bộ nhớ
-            cursor.close()
+            close()
         }
     }
 }

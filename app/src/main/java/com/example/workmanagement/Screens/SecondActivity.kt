@@ -37,40 +37,39 @@ class SecondActivity : AppCompatActivity() {
         val day = datePicker.dayOfMonth
         val month = datePicker.month
         val year = datePicker.year
-
         val calendar = Calendar.getInstance()
+
         calendar.set(year, month, day)
 
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(calendar.time)
     }
 
     private fun saveWork() {
         val workName = ETName.text.toString()
         val selectedDate = getDate(datePicker)
+        Log.d("test", "code đã chạy vào đây 1")
 
-        if (workName.isEmpty()) {Toast.makeText(
-            this,
-            "Không bỏ trống nội dung công việc",
-            Toast.LENGTH_SHORT
-        ).show()
+        if (workName.isEmpty()) {
+            Toast.makeText(this,"Không bỏ trống nội dung công việc", Toast.LENGTH_SHORT).show()
+            Log.d("test", "code đã chạy vào đây 2")
             return
         }
 
+        Log.d("test", "code đã chạy vào đây 3")
         val values = ContentValues()
         values.put(MyOpenHelper.COLUMN_NAME, workName)
         values.put(MyOpenHelper.COLUMN_TIME, selectedDate)
 
         val uri = contentResolver.insert(MyContentProvider.CONTENT_URI, values)
+        Log.d("test", "code đã chạy vào đây 4")
 
-        if (uri == null) Toast.makeText(
-            this,
-            "Lưu thất bại, có lỗi xảy ra!",
-            Toast.LENGTH_SHORT
-        ).show()
-        Log.d("test", "code đã chạy vào trong hàm save work")
+        if (uri == null) {
+            Toast.makeText(this, "Lưu thất bại, có lỗi xảy ra!", Toast.LENGTH_SHORT).show()
+            return
+        }
         Toast.makeText(this, "Lưu thành công!", Toast.LENGTH_SHORT).show()
         // kill activity trở lại màn hình 1
-//        finish()
+        finish()
     }
 }
