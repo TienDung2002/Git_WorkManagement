@@ -28,9 +28,9 @@
         <provider
             android:authorities="com.example.workmanagement.MyContentProvider"
             android:name=".MyContentProvider"
-            android:exported="false"
-            android:readPermission="com.android.example.workmanagement.READ_DATABASE"
-            android:writePermission="com.android.example.workmanagement.WRITE_DATABASE"/>
+            android:exported="true"
+            android:enabled="true"
+            android:readPermission="com.android.example.workmanagement.READ_DATABASE" />
 
     </application>
 
