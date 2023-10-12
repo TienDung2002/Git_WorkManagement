@@ -68,26 +68,6 @@ class MyContentProvider : ContentProvider() {
                 // trả về kq truy vấn
                 cursor
             }
-            // uri math theo WORK_ID cụ thể
-//            WORK_ID -> {
-//                // Lấy phần cuối của Uri: ví dụ "content://com.example.workmanagement.MyContentProvider/works/2" thì id là 2
-//                val id = uri.lastPathSegment
-//                // Tạo dk truy vấn sử dụng "?" như placeholder để thay thế ID sau này trong truy vấn
-//                val selectionById = "${MyOpenHelper.COLUMN_ID} = ?"
-//                // Tạo 1 mảng chứa ID lấy từ lastPathSegment, mảng này để thay thế "?" ở selectionById
-//                val selectionArgsById = arrayOf(id)
-//                val cursor = db.query(
-//                    MyOpenHelper.TABLE_NAME,
-//                    projection,
-//                    selectionById,
-//                    selectionArgsById,
-//                    null,
-//                    null,
-//                    sortOrder
-//                )
-//                cursor.setNotificationUri(context?.contentResolver, uri)
-//                cursor
-//            }
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
     }
